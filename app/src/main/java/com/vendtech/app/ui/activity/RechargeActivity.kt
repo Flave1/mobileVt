@@ -45,7 +45,7 @@ class RechargeActivity: AppCompatActivity() {
     var meter_id=""
     private fun getData(){
         if(intent!!.extras!=null){
-            meterListResults= intent.extras.getSerializable("Data") as MeterListResults;
+            meterListResults= intent.extras?.getSerializable("Data") as MeterListResults;
             tv_meter_number.setText(meterListResults.number);
             meter_id=meterListResults.meterId;
             //tv_meter_number.setText(meterListResults.number)

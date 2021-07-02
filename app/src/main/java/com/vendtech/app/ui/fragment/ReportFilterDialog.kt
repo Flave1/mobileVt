@@ -142,32 +142,33 @@ setUpClick()
 
     private fun getFormattedDate(textView: TextView?) {
         val calendar=Calendar.getInstance()
-        val dialog=DatePickerDialog(context,object :DatePickerDialog.OnDateSetListener{
-            override fun onDateSet(datePicker: DatePicker?, p1: Int, p2: Int, p3: Int) {
-                val year: Int = datePicker?.year!!
-                val month: Int = datePicker.month
-                val day: Int = datePicker.dayOfMonth
+        val dialog= context?.let {
+            DatePickerDialog(it,object :DatePickerDialog.OnDateSetListener{
+                override fun onDateSet(datePicker: DatePicker?, p1: Int, p2: Int, p3: Int) {
+                    val year: Int = datePicker?.year!!
+                    val month: Int = datePicker.month
+                    val day: Int = datePicker.dayOfMonth
 
-                val newDate = Calendar.getInstance()
-                newDate[year, month] = day
-if(textView==reportFilterTo){
-    val format = SimpleDateFormat("MM-dd-yyyy")
-    val strDate: String = format.format(newDate.time)
-    to=strDate
-}
-                else if(textView==reportFilterFrom){
-    val format = SimpleDateFormat("MM-dd-yyyy")
-    val strDate: String = format.format(newDate.time)
-    from=strDate
+                    val newDate = Calendar.getInstance()
+                    newDate[year, month] = day
+                    if(textView==reportFilterTo){
+                        val format = SimpleDateFormat("MM-dd-yyyy")
+                        val strDate: String = format.format(newDate.time)
+                        to=strDate
+                    } else if(textView==reportFilterFrom){
+                        val format = SimpleDateFormat("MM-dd-yyyy")
+                        val strDate: String = format.format(newDate.time)
+                        from=strDate
+                    }
+                    val format = SimpleDateFormat("dd-MM-yyyy")
+                    val strDate: String = format.format(newDate.time)
+                    textView?.text = strDate
                 }
-                val format = SimpleDateFormat("dd-MM-yyyy")
-                val strDate: String = format.format(newDate.time)
-                textView?.text = strDate
-            }
 
-        },calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH))
-        dialog.datePicker.maxDate = System.currentTimeMillis();
-        dialog.show()
+            },calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH))
+        }
+        dialog?.datePicker?.maxDate = System.currentTimeMillis();
+        dialog?.show()
     }
     fun GetBankDetails() {
         var customDialog: CustomDialog
@@ -237,12 +238,10 @@ if(textView==reportFilterTo){
             }
 
             override fun onResponse(call: Call<PosResultModel>, response: Response<PosResultModel>) {
-                if (response != null) {
-                    if (response.body() != null) {
-                        if (response.body()?.status == "true") {
-                            if (response.body()?.result?.size!! > 0) {
-                                SetOnSpinner(response.body()?.result!!)
-                            }
+                if (response.body() != null) {
+                    if (response.body()?.status == "true") {
+                        if (response.body()?.result?.size!! > 0) {
+                            SetOnSpinner(response.body()?.result!!)
                         }
                     }
                 }
@@ -258,8 +257,8 @@ if(textView==reportFilterTo){
         result.forEach {
             list.add(it.serialNumber)
         }
-        val adapter= ArrayAdapter<String>(context, R.layout.item_pos_large,list)
-        adapter.setDropDownViewResource(R.layout.sppiner_layout_item)
+        val adapter= context?.let { ArrayAdapter<String>(it, R.layout.item_pos_large,list) }
+        adapter?.setDropDownViewResource(R.layout.sppiner_layout_item)
         reportFilterPosSP.adapter=adapter
         reportFilterPosSP.onItemSelectedListener=object : AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -270,8 +269,6 @@ if(textView==reportFilterTo){
                 if(p2>0) {
                    // posId = posList[p2 - 1].posId;
                     posId = posList[p2].posId;
-
-
                 }
                 else posId=0
             }

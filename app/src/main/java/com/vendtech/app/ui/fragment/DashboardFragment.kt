@@ -544,8 +544,8 @@ class DashboardFragment : Fragment(), View.OnClickListener, MeterListDialogAdapt
         }
 
         if (activity!=null) {
-            val adapter = ArrayAdapter<String>(context, R.layout.item_pos_large, list)
-            adapter.setDropDownViewResource(R.layout.sppiner_layout_item)
+            val adapter = context?.let { ArrayAdapter<String>(it, R.layout.item_pos_large, list) }
+            adapter?.setDropDownViewResource(R.layout.sppiner_layout_item)
             posSpinner.adapter = adapter
             posSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -795,12 +795,12 @@ class DashboardFragment : Fragment(), View.OnClickListener, MeterListDialogAdapt
 
     private fun showMeterListDialog(list: MutableList<MeterListResults>) {
 
-        val dialog = Dialog(activity)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setCancelable(false)
-        dialog.setContentView(R.layout.dialog_select_meter)
-        val cancel = dialog.findViewById(R.id.cancelDialog) as AppCompatTextView
-        val recyclerview = dialog.findViewById(R.id.recyclerviewMeter) as RecyclerView
+        val dialog = activity?.let { Dialog(it) }
+        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog?.setCancelable(false)
+        dialog?.setContentView(R.layout.dialog_select_meter)
+        val cancel = dialog?.findViewById(R.id.cancelDialog) as AppCompatTextView
+        val recyclerview = dialog?.findViewById(R.id.recyclerviewMeter) as RecyclerView
         val mLayoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         meterDialogAdapter = MeterListDialogAdapter(list, requireContext(), this)
         recyclerview.adapter = meterDialogAdapter

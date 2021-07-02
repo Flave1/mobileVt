@@ -384,19 +384,19 @@ class EditProfileActivity : Activity(), View.OnClickListener {
         if (DocumentsContract.isDocumentUri(this, uri)) {
 //            document类型的Uri，用document id处理
             val docId = DocumentsContract.getDocumentId(uri)
-            if ("com.android.providers.media.documents" == uri.authority) {
+            if ("com.android.providers.media.documents" == uri?.authority) {
                 val id = docId.split(":")[1]
                 val selsetion = MediaStore.Images.Media._ID + "=" + id
                 imagePath = imagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selsetion)
-            } else if ("com.android.providers.downloads.documents" == uri.authority) {
+            } else if ("com.android.providers.downloads.documents" == uri?.authority) {
                 val contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), java.lang.Long.valueOf(docId))
                 imagePath = imagePath(contentUri, null)
             }
-        } else if ("content".equals(uri.scheme, ignoreCase = true)) {
+        } else if ("content".equals(uri?.scheme, ignoreCase = true)) {
 //            content类型Uri 普通方式处理
             imagePath = imagePath(uri, null)
-        } else if ("file".equals(uri.scheme, ignoreCase = true)) {
-            imagePath = uri.path
+        } else if ("file".equals(uri?.scheme, ignoreCase = true)) {
+            imagePath = uri?.path
         }
         displayImage(imagePath)
     }
@@ -413,7 +413,7 @@ class EditProfileActivity : Activity(), View.OnClickListener {
     private fun imagePath(uri: Uri?, selection: String?): String {
         var path: String? = null
 //        通过Uri和selection获取路径
-        val cursor = contentResolver.query(uri, null, selection, null, null)
+        val cursor = uri?.let { contentResolver.query(it, null, selection, null, null) }
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA))

@@ -33,7 +33,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onNewToken(token: String?) {
         super.onNewToken(token)
-        Log.i(TAG, token)
+//        Log.i(TAG, token)
         SharedHelper.putString(this,Constants.DEVICE_TOKEN,token.toString())
     }
 

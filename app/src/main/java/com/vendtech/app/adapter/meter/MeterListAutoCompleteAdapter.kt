@@ -31,7 +31,7 @@ import com.vendtech.app.models.meter.MeterListResults
         return mPois.get(p0).meterId.toLong()
     }
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view: TextView = convertView as TextView? ?: LayoutInflater.from(context).inflate(layoutResource, parent, false) as TextView
         view.text = "${mPois[position].name}"+" - "+"${mPois[position].number}"
 

@@ -49,11 +49,11 @@ class EditMeterActivity : Activity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_meter)
 
-        mnumber = intent.getStringExtra("mnumber")
-        mname = intent.getStringExtra("mname")
-        maddress = intent.getStringExtra("maddress")
-        mdate = intent.getStringExtra("mdate")
-        meterId = intent.getStringExtra("mid")
+        mnumber = intent.getStringExtra("mnumber").toString()
+        mname = intent.getStringExtra("mname").toString()
+        maddress = intent.getStringExtra("maddress").toString()
+        mdate = intent.getStringExtra("mdate").toString()
+        meterId = intent.getStringExtra("mid").toString()
 
         initViews()
         customDialog = CustomDialog(this)

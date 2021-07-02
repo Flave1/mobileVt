@@ -35,8 +35,8 @@ class TermsPoliciesActivity : Activity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_terms_policy)
 
-        titleIS = intent.getStringExtra("title")
-        type=intent.getStringExtra("type")
+        titleIS = intent.getStringExtra("title").toString()
+        type= intent.getStringExtra("type").toString()
         initViews()
 
         if(Uten.isInternetAvailable(this)){

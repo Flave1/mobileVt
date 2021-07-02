@@ -27,7 +27,7 @@ class SharedHelper {
         }
         fun getString(context: Context,key: String):String{
             sharedPreference=context.getSharedPreferences("VendTechSP",Context.MODE_PRIVATE)
-            return sharedPreference.getString(key,"")
+            return sharedPreference.getString(key,"") ?: ""
         }
         fun getBoolean(context: Context,key: String):Boolean{
             sharedPreference=context.getSharedPreferences("VendTechSP",Context.MODE_PRIVATE)

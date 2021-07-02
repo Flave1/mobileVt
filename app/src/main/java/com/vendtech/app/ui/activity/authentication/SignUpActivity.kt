@@ -81,8 +81,8 @@ class SignUpActivity : AppCompatActivity() {
             CITY_ID=""
 
 
-            USER_NAME=intent.getStringExtra("username")
-            PASSWORD=intent.getStringExtra("password")
+            USER_NAME=intent.getStringExtra("username").toString()
+            PASSWORD=intent.getStringExtra("password").toString()
 
             listListners()
             getUserTypes()
